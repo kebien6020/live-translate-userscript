@@ -10,8 +10,6 @@ import { whenAvailable, log } from '../util';
 import Buttons from './Buttons';
 import Messages from './Messages';
 
-const h = React.createElement;
-
 const App = () => {
     const [isWatchPage, setIsWatchPage] = useState(false);
     const [messages, setMessages] = useState([]);
@@ -99,24 +97,24 @@ const App = () => {
         }
     }, [messages]);
 
-    return containers && h(React.Fragment, null,
-        ReactDOM.createPortal(
-            h(Buttons, {
-                onToggleMessages: toggleMessages,
-                messagesAreShown: showMessages,
-            }),
+    return containers && <>
+        {ReactDOM.createPortal(
+            <Buttons
+                onToggleMessages={toggleMessages}
+                messagesAreShown={showMessages}
+            />,
             containers.buttonContainer,
-        ),
-        ReactDOM.createPortal(
-            h(Messages, {
-                show: showMessages,
-                messages,
-                forwardRef: messagesRef,
-                bottomOfChatRef: bottomOfChatRef,
-            }),
+        )}
+        {ReactDOM.createPortal(
+            <Messages
+                show={showMessages}
+                messages={messages}
+                forwardRef={messagesRef}
+                bottomOfChatRef={bottomOfChatRef}
+            />,
             containers.msgContainer,
-        ),
-    );
+        )}
+    </>;
 };
 
 export default App;

@@ -6,8 +6,6 @@ import { init as initChatObserver } from './ChatObserver';
 import { log } from './util';
 import App from './components/App';
 
-const h = React.createElement;
-
 const main = async () => {
     log('main: Start');
 
@@ -18,7 +16,7 @@ const main = async () => {
 
     log('main: Initializing react');
 
-    ReactDOM.render(h(App), root);
+    ReactDOM.render(<App />, root);
 };
 
 const inAFrame = window !== window.top;
