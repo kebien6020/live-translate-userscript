@@ -1,6 +1,8 @@
 /* eslint-env node */
 const path = require('path');
 const WebpackUserscript = require('webpack-userscript');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 const dev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -19,17 +21,14 @@ module.exports = {
             },
         ],
     },
-    externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-    },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new WebpackUserscript({
             headers: {
-                name: 'Live Translate Userscript' + (dev ? ' Dev' : ''),
+                name: 'Live Translate' + (dev ? ' Dev' : ''),
                 version: dev ? '[version]-build.[buildTime]' : '[version]',
                 author: 'u/BakuhatsuK',
                 description: 'Get streaming translation comments easily. '
@@ -38,9 +37,11 @@ module.exports = {
                 include: 'https://*.youtube.com/*',
                 'run-at': 'document-start',
                 supportURL: 'https://github.com/kebien6020/live-translate-userscript',
+                downloadURL: 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
+                updateURL: 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
             },
             proxyScript: {
-                enable: true,
+                enable: () => dev,
                 filename: 'proxy.user.js',
             },
         }),
