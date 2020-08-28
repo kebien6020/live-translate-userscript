@@ -29,18 +29,15 @@ module.exports = {
     plugins: [
         new WebpackUserscript({
             headers: {
-                name: 'Live Translate Userscript' + dev ? ' Dev' : '',
+                name: 'Live Translate Userscript' + (dev ? ' Dev' : ''),
                 version: dev ? '[version]-build.[buildTime]' : '[version]',
                 author: 'u/BakuhatsuK',
-                description: 'Get streaming translation comments easily.'
+                description: 'Get streaming translation comments easily. '
                            + 'Based on extension made by u/konokalahola',
                 namespace: 'youtube.com',
                 include: 'https://*.youtube.com/*',
                 'run-at': 'document-start',
-                require: [
-                    'https://unpkg.com/react@16/umd/react.development.js',
-                    'https://unpkg.com/react-dom@16/umd/react-dom.development.js',
-                ],
+                supportURL: 'https://github.com/kebien6020/live-translate-userscript',
             },
             proxyScript: {
                 enable: true,
