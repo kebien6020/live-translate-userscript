@@ -3,19 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "@material-ui/core": "^4.11.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.11.4",
     "@babel/preset-react": "^7.10.4",
+    "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.1.0",
     "eslint": "^7.7.0",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-userscript": "^2.5.5"
   },
   "scripts": {
-    "dev": "webpack-cli -w",
+    "dev": "webpack-dev-server",
     "build": "webpack-cli --mode production"
   },
   "keywords": [],
