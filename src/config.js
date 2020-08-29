@@ -1,4 +1,3 @@
-// export const MSG_REGEX = /^.*$/i;
-export const MSG_REGEX = /^.{0,15}\[.*eng?.*\].*$/i;
+export const DEFAULT_MSG_REGEX = '^.{0,15}\\[.*(en|eng).*\\].*$';
 
 export const DEBUG = false;

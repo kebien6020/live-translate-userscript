@@ -17,6 +17,11 @@ export const error = (...args) => {
         console.warn(...args); // eslint-disable-line no-console
 };
 
+export const debug = (...args) => {
+    if (DEBUG)
+        console.debug(...args); // eslint-disable-line no-console
+};
+
 /**
  * @param {string} selector
  * @param {Window} wnd

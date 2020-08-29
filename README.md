@@ -34,6 +34,7 @@ You will find a new icon near "Up next" which will toggle the translation box.
 - Automatically monitors the chat for new messages. And copies the messages that
   match into the translation box.
 - Works for live chat and chat replay.
+- You can customize how messages are matched (specifying a custom regex).
 - Follows your configured light/dark theme.
 - Will remember whether you had the translation box open or closed last time you
   used it.
@@ -44,6 +45,10 @@ This proyect is licensed under the [WTFPL](http://www.wtfpl.net/). See the
 [LICENSE](./LICENSE) file for more information.
 
 ## Changelog
+
+### 1.1.0
+- New settings dialog. Now you can customize how messages are matched. This
+  setting is persisted and can be reset from the UI.
 
 ### 1.0.2
 - Persist translation box open or closed state
