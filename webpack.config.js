@@ -37,8 +37,8 @@ module.exports = {
                 include: 'https://*.youtube.com/*',
                 'run-at': 'document-start',
                 supportURL: 'https://github.com/kebien6020/live-translate-userscript',
-                downloadURL: 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
-                updateURL: 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
+                downloadURL: dev ? undefined : 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
+                updateURL: dev ? undefined : 'https://github.com/kebien6020/live-translate-userscript/raw/master/dist/live-translate.user.js',
             },
             proxyScript: {
                 enable: () => dev,
