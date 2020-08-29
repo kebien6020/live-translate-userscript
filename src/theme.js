@@ -1,10 +1,13 @@
+import { blue } from '@material-ui/core/colors';
+
 export default {
     pallette: {
-        primary: {
-            light: '#ff5131',
+        primary: blue,
+        secondary: {
             main: '#d50000',
-            dark: '#9b0000',
-            contrastText: '#fff',
         },
+    },
+    typography: {
+        fontSize: 18,
     },
 };

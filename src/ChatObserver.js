@@ -1,29 +1,26 @@
-import { MSG_REGEX } from './config';
-import { log, warn, whenAvailable } from './util';
+import { log, warn, whenAvailable, debug } from './util';
 
 const messageListeners = [];
 const pageChangeListeners = [];
 
-export async function addMessageEventListener(listener) {
+export function addMessageEventListener(listener) {
     messageListeners.push(listener);
 }
 
-export async function removeMessageEventListener(listener) {
+export function removeMessageEventListener(listener) {
     const index = messageListeners.findIndex(l => l === listener);
-    if (index !== -1) 
+    if (index !== -1)
         delete messageListeners[index];
-    
 }
 
-export async function addPageChangeListener(listener) {
+export function addPageChangeListener(listener) {
     pageChangeListeners.push(listener);
 }
 
-export async function removePageChangeEventListener(listener) {
+export function removePageChangeEventListener(listener) {
     const index = pageChangeListeners.findIndex(l => l === listener);
-    if (index !== -1) 
+    if (index !== -1)
         delete pageChangeListeners[index];
-    
 }
 
 let ytApp;
@@ -70,7 +67,7 @@ function onChatChange(mutations) {
 
         if (chatElems.length === 0) continue;
 
-        log('onChatChange: New messages ', chatElems.length);
+        debug('onChatChange: New messages ', chatElems.length);
 
         for (const chatElem of chatElems)
             onChatElem(chatElem);
@@ -86,8 +83,6 @@ function onChatElem(chatElem) {
     }
 
     const msgText = msgElem.textContent;
-    const isAMatch = MSG_REGEX.test(msgText);
-    if (!isAMatch) return;
 
     const author = chatElem.querySelector('#author-name');
     const authorText = author ? author.textContent : '???';
@@ -100,11 +95,15 @@ function onChatElem(chatElem) {
 }
 
 function notifyMessage(message) {
-    for (const listener of messageListeners)
-        listener(message);
+    for (const listener of messageListeners) {
+        if(typeof listener === 'function')
+            listener(message);
+    }
 }
 
 function notifyPageChange(isWatchPage) {
-    for (const listener of pageChangeListeners)
-        listener(isWatchPage);
+    for (const listener of pageChangeListeners) {
+        if(typeof listener === 'function')
+            listener(isWatchPage); 
+    }
 }

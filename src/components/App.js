@@ -6,13 +6,14 @@ import {
     removeMessageEventListener,
     removePageChangeEventListener,
 } from '../ChatObserver';
-import { whenAvailable, log } from '../util';
+import { whenAvailable, log, error } from '../util';
 import Buttons from './Buttons';
 import Messages from './Messages';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import useYoutubeDarkMode from '../hooks/useYoutubeDarkMode';
 import baseTheme from '../theme';
 import { SettingsProvider, useSetting } from '../context/Settings';
+import { DEFAULT_MSG_REGEX } from '../config';
 
 const Providers = ({ children }) => {
     const ytIsDark = useYoutubeDarkMode();
@@ -95,9 +96,24 @@ const Main = () => {
         setupContainers();
     }, [isWatchPage]);
 
+    // Get the regex
+    const [regexStr] = useSetting('msg_regex', DEFAULT_MSG_REGEX);
+    const regex = useMemo(() => {
+        try {
+            return new RegExp(regexStr, 'i');
+        } catch (err) {
+            error('Invalid regexp', regexStr, err);
+            return new RegExp(DEFAULT_MSG_REGEX, 'i');
+        }
+    }, [regexStr]);
+
     // Subscribe to messages
     useEffect(() => {
         const addMessage = message => {
+            const isAMatch = regex.test(message.text);
+            if (!isAMatch)
+                return;
+
             setMessages(prev => [
                 ...prev,
                 message,
@@ -109,17 +125,16 @@ const Main = () => {
         return () => {
             removeMessageEventListener(addMessage);
         };
-    }, []);
+    }, [regex]);
 
     // auto scroll down
     const messagesRef = useRef(null);
-    const bottomOfChatRef = useRef(null);
     useEffect(() => {
-        if (bottomOfChatRef.current && messagesRef.current) {
+        if (messagesRef.current) {
             const elem = messagesRef.current;
             if (elem.scrollHeight - elem.offsetHeight - elem.scrollTop <= 100) {
                 log('scrolling bottom');
-                bottomOfChatRef.current.scrollIntoView({ block: 'end' });
+                elem.scrollTop = elem.scrollHeight;
             }
         }
     }, [messages]);
@@ -137,7 +152,6 @@ const Main = () => {
                 show={showMessages}
                 messages={messages}
                 forwardRef={messagesRef}
-                bottomOfChatRef={bottomOfChatRef}
             />,
             containers.msgContainer,
         )}
