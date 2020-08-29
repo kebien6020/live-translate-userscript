@@ -46,7 +46,7 @@ This proyect is licensed under the [WTFPL](http://www.wtfpl.net/). See the
 
 ## Changelog
 
-### latest
+### 1.1.0
 - New settings dialog. Now you can customize how messages are matched. This
   setting is persisted and can be reset from the UI.
 

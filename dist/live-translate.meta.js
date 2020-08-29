@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Live Translate
-// @version     1.0.2
+// @version     1.1.0
 // @author      u/BakuhatsuK
 // @description Get streaming translation comments easily. Based on extension made by u/konokalahola
 // @supportURL  https://github.com/kebien6020/live-translate-userscript
