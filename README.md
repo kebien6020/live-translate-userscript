@@ -41,7 +41,7 @@ You will find a new icon near "Up next" which will toggle the translation box.
 ## License
 
 This proyect is licensed under the [WTFPL](http://www.wtfpl.net/). See the
-[LICENSE.md](./LICENSE.md) file for more information.
+[LICENSE](./LICENSE) file for more information.
 
 ## Changelog
 
