@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled, Paper, Collapse } from '@material-ui/core';
 
-const Messages = ({ show, messages, bottomOfChatRef, forwardRef }) => {
+const Messages = ({ show, messages, forwardRef }) => {
     return (
         <Collapse in={show}>
             <Wrapper ref={forwardRef}>
@@ -11,10 +11,6 @@ const Messages = ({ show, messages, bottomOfChatRef, forwardRef }) => {
                         {message.text}
                     </div>
                 ))}
-                <div
-                    style={{ float: 'left', clear: 'both' }}
-                    ref={bottomOfChatRef}
-                />
             </Wrapper>
         </Collapse>
     );
@@ -25,7 +21,7 @@ const Wrapper = styled(Paper)({
     width: '100%',
     height: '120px',
     overflow: 'hidden',
-    overflowY: 'auto',
+    overflowY: 'scroll',
     marginTop: '5px',
     paddingLeft: '10px',
     paddingRight: '10px',
