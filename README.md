@@ -45,7 +45,7 @@ This proyect is licensed under the [WTFPL](http://www.wtfpl.net/). See the
 
 ## Changelog
 
-### latest
+### 1.0.2
 - Persist translation box open or closed state
 
 ### 1.0.1
