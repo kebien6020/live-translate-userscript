@@ -12,6 +12,7 @@ import Messages from './Messages';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import useYoutubeDarkMode from '../hooks/useYoutubeDarkMode';
 import baseTheme from '../theme';
+import { SettingsProvider, useSetting } from '../context/Settings';
 
 const Providers = ({ children }) => {
     const ytIsDark = useYoutubeDarkMode();
@@ -28,16 +29,18 @@ const Providers = ({ children }) => {
 
     return (
         <ThemeProvider theme={theme}>
-            {children}
+            <SettingsProvider>
+                {children}
+            </SettingsProvider>
         </ThemeProvider>
     );
 };
 
-const App = () => {
+const Main = () => {
     const [isWatchPage, setIsWatchPage] = useState(false);
     const [messages, setMessages] = useState([]);
     const [containers, setContainers] = useState(null);
-    const [showMessages, setShowMessages] = useState(false);
+    const [showMessages, setShowMessages] = useSetting('showMessages', false);
     const toggleMessages = () => setShowMessages(prev => !prev);
 
     // Detect when we arrive at the watch page
@@ -121,28 +124,30 @@ const App = () => {
         }
     }, [messages]);
 
-    return (
-        <Providers>
-            {containers && <>
-                {ReactDOM.createPortal(
-                    <Buttons
-                        onToggleMessages={toggleMessages}
-                        messagesAreShown={showMessages}
-                    />,
-                    containers.buttonContainer,
-                )}
-                {ReactDOM.createPortal(
-                    <Messages
-                        show={showMessages}
-                        messages={messages}
-                        forwardRef={messagesRef}
-                        bottomOfChatRef={bottomOfChatRef}
-                    />,
-                    containers.msgContainer,
-                )}
-            </>}
-        </Providers>
-    );
+    return (containers && <>
+        {ReactDOM.createPortal(
+            <Buttons
+                onToggleMessages={toggleMessages}
+                messagesAreShown={showMessages}
+            />,
+            containers.buttonContainer,
+        )}
+        {ReactDOM.createPortal(
+            <Messages
+                show={showMessages}
+                messages={messages}
+                forwardRef={messagesRef}
+                bottomOfChatRef={bottomOfChatRef}
+            />,
+            containers.msgContainer,
+        )}
+    </>);
 };
+
+const App = () => (
+    <Providers>
+        <Main />
+    </Providers>
+);
 
 export default App;

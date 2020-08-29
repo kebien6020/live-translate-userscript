@@ -35,6 +35,8 @@ You will find a new icon near "Up next" which will toggle the translation box.
   match into the translation box.
 - Works for live chat and chat replay.
 - Follows your configured light/dark theme.
+- Will remember whether you had the translation box open or closed last time you
+  used it.
 
 ## License
 
@@ -42,6 +44,9 @@ This proyect is licensed under the [WTFPL](http://www.wtfpl.net/). See the
 [LICENSE.md](./LICENSE.md) file for more information.
 
 ## Changelog
+
+### 1.0.2
+- Persist translation box open or closed state
 
 ### 1.0.1
 - Follow light/dark theme of Youtube.
